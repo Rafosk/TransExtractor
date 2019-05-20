@@ -8,6 +8,7 @@ public class TranslatorBean {
 	private int SDL2015;
 	private int SDL2017;
 	private int SDL2019;
+	
 	public String getFirstName() {
 		return firstName;
 	}
