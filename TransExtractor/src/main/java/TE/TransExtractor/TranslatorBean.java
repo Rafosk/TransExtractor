@@ -2,6 +2,13 @@ package TE.TransExtractor;
 
 public class TranslatorBean {
 
+	private String fileName;
+	public String getFileName() {
+		return fileName;
+	}
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
+	}
 	private String firstName;
 	private String lastName;
 	private int SDL2014;

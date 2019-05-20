@@ -40,15 +40,23 @@ public class App {
 		for (File file : listOfFiles) {
 			if (file.isFile()) {
 				System.out.println(file.getCanonicalPath());
-				// System.out.println(file.getAbsolutePath());
-				TranslatorBean tr = new TranslatorBean();
-				getNames(file, tr);
-				String unzipedFile = unzipXlsxFile(file);
-				getTradosInfomation(unzipedFile, tr);
-				String result = unzipXlsxFile(file);
-				File results = new File(result);
-				FileUtils.deleteDirectory(results);
-				tbList.add(tr);
+				try {
+					TranslatorBean tr = new TranslatorBean();
+					tr.setFileName(file.getName());
+					getNames(file, tr);
+					String unzipedFile = unzipXlsxFile(file);
+					getTradosInfomation(unzipedFile, tr);
+					String result = unzipXlsxFile(file);
+					File results = new File(result);
+					FileUtils.deleteDirectory(results);
+					FileUtils.moveFile(file, new File("C:\\Users\\Rafal.Krakiewicz\\Desktop\\praca\\edi_translators\\done\\"+file.getName()));
+					tbList.add(tr);	
+				} catch (Exception e) {
+					System.out.println(e.getMessage());
+				}
+				
+				
+				
 			}
 		}
 
@@ -56,7 +64,7 @@ public class App {
 				"UTF-8");
 
 		for (TranslatorBean tr : tbList) {
-			writer.println("('" + tr.getFirstName() + "','" + tr.getLastName() + "'," + tr.getSDL2014() + ","
+			writer.println(tr.getFileName() + "('" + tr.getFirstName() + "','" + tr.getLastName() + "'," + tr.getSDL2014() + ","
 					+ tr.getSDL2015() + "," + tr.getSDL2017() + "," + tr.getSDL2019() + ")");
 		}
 
@@ -115,8 +123,6 @@ public class App {
 		setAnswer(tr, tbList);
 
 		resetAnswers(tr);
-
-		System.out.println("test");
 
 	}
 
